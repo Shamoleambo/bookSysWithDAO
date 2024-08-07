@@ -47,4 +47,11 @@ public class BookController {
 		model.addAttribute("book", book);
 		return "edit_book";
 	}
+
+	@PostMapping("/{id}")
+	public String updateBook(@RequestParam("id") Long id, @ModelAttribute Book book) {
+		book.setId(id);
+		this.bookService.saveBook(book);
+		return "redirect:/books";
+	}
 }
