@@ -54,4 +54,10 @@ public class BookController {
 		this.bookService.saveBook(book);
 		return "redirect:/books";
 	}
+
+	@GetMapping("/delete/{id}")
+	public String deleteBook(@RequestParam("id") Long id) {
+		this.bookService.deleteBookById(id);
+		return "redirect:/books";
+	}
 }
