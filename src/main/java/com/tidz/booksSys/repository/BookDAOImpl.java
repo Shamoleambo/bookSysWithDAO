@@ -12,7 +12,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 @Repository
-@Transactional
 public class BookDAOImpl implements BookDAO {
 
 	@Autowired
@@ -29,8 +28,14 @@ public class BookDAOImpl implements BookDAO {
 	}
 
 	@Override
+	@Transactional
 	public Book saveBook(Book book) {
-		return null;
+		if (book.getId() == null) {
+			this.entityManager.persist(book);
+		} else {
+			book = this.entityManager.merge(book);
+		}
+		return book;
 	}
 
 	@Override
