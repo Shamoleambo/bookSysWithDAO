@@ -25,7 +25,7 @@ public class BookDAOImpl implements BookDAO {
 
 	@Override
 	public Optional<Book> getBookById(Long id) {
-		return null;
+		return Optional.ofNullable(this.entityManager.find(Book.class, id));
 	}
 
 	@Override
