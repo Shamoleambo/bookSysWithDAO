@@ -7,9 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tidz.booksSys.entity.Book;
 import com.tidz.booksSys.service.BookService;
@@ -42,21 +42,22 @@ public class BookController {
 	}
 
 	@GetMapping("/edit/{id}")
-	public String editBook(@RequestParam("id") Long id, Model model) {
+	public String editBook(@PathVariable("id") Long id, Model model) {
 		Book book = this.bookService.getBookById(id).orElseThrow(() -> new IllegalArgumentException());
 		model.addAttribute("book", book);
 		return "edit_book";
 	}
 
 	@PostMapping("/{id}")
-	public String updateBook(@RequestParam("id") Long id, @ModelAttribute Book book) {
+	public String updateBook(@PathVariable("id") Long id, @ModelAttribute Book book) {
 		book.setId(id);
 		this.bookService.saveBook(book);
 		return "redirect:/books";
 	}
 
 	@GetMapping("/delete/{id}")
-	public String deleteBook(@RequestParam("id") Long id) {
+	public String deleteBook(@PathVariable("id") Long id) {
+		System.out.println("Id: " + id);
 		this.bookService.deleteBookById(id);
 		return "redirect:/books";
 	}
