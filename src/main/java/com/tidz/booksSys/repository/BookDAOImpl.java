@@ -39,6 +39,7 @@ public class BookDAOImpl implements BookDAO {
 	}
 
 	@Override
+	@Transactional
 	public void deleteBookById(Long id) {
 		Book book = this.entityManager.find(Book.class, id);
 		if (book != null) {
